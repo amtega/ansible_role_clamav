@@ -1,0 +1,91 @@
+{{ ansible_managed | comment }}
+
+DatabaseDirectory {{ clamav_database_directory }}
+
+{% if clamav_freshclam_log is defined %}
+UpdateLogFile {{ clamav_freshclam_log }}
+{% endif %}
+
+LogFileMaxSize {{ clamav_freshclam_log_max_size }}
+LogTime {{ (clamav_freshclam_log_time) | ternary("yes", "no") }}
+LogSyslog {{ (clamav_freshclam_log_syslog) | ternary("yes", "no") }}
+
+{% if clamav_freshclam_log_syslog %}
+LogFacility {{ clamav_freshclam_log_syslog_facility }}
+{% endif %}
+
+LogVerbose {{ (clamav_freshclam_log_verbose) | ternary("yes", "no") }}
+LogRotate {{ (clamav_freshclam_log_rotate) | ternary("yes", "no") }}
+
+{% if clamav_freshclam_pid_file is defined %}
+PidFile {{ clamav_freshclam_pid_file }}
+{% endif %}
+
+{% if clamav_freshclam_database_owner is defined %}
+DatabaseOwner {{ clamav_freshclam_database_owner }}
+{% endif %}
+
+DNSDatabaseInfo {{ clamav_freshclam_dns_database_info }}
+DatabaseMirror {{ clamav_freshclam_database_mirror }}
+MaxAttempts {{ clamav_freshclam_max_attempts }}
+
+ScriptedUpdates {{ (clamav_freshclam_scripted_updates) | ternary("yes", "no") }}
+CompressLocalDatabase {{ (clamav_freshclam_compress_local_database) | ternary("yes", "no") }}
+Checks {{ clamav_freshclam_checks }}
+
+{% if clamav_freshclam_database_custom_url is defined %}
+DatabaseCustomURL {{ clamav_freshclam_database_custom_url }}
+{% endif %}
+
+{% if clamav_freshclam_private_mirror is defined %}
+PrivateMirror {{ clamav_freshclam_private_mirror }}
+{% endif %}
+
+{% if clamav_freshclam_proxy_server is defined %}
+HTTPProxyServer {{ clamav_freshclam_proxy_server }}
+HTTPProxyPort {{ clamav_freshclam_proxy_port }}
+{% endif %}
+
+{% if clamav_freshclam_proxy_username is defined %}
+HTTPProxyUsername {{ clamav_freshclam_proxy_username }}
+{% endif %}
+
+{% if clamav_freshclam_proxy_password is defined %}
+HTTPProxyPassword {{ clamav_freshclam_proxy_password }}
+{% endif %}
+
+{% if clamav_freshclam_http_user_agent is defined %}
+HTTPUserAgent {{ clamav_freshclam_http_user_agent }}
+{% endif %}
+
+{% if clamav_freshclam_local_ip_address is defined %}
+LocalIPAddress {{ clamav_freshclam_local_ip_address }}
+{% endif %}
+
+{% if clamav_freshclam_notify_clamd is defined %}
+NotifyClamd {{ clamav_freshclam_notify_clamd }}
+{% endif %}
+
+{% if clamav_freshclam_on_update_execute is defined %}
+OnUpdateExecute {{ clamav_freshclam_on_update_execute }}
+{% endif %}
+
+{% if clamav_freshclam_on_error_execute is defined %}
+OnErrorExecute {{ clamav_freshclam_on_error_execute }}
+{% endif %}
+
+{% if clamav_freshclam_on_outdated_execute is defined %}
+OnOutdatedExecute {{ clamav_freshclam_on_outdated_execute }}
+{% endif %}
+
+Foreground {{ (clamav_freshclam_foreground) | ternary("yes", "no") }}
+Debug {{ (clamav_freshclam_debug) | ternary("yes", "no") }}
+ConnectTimeout {{ clamav_freshclam_connect_timeout }}
+ReceiveTimeout {{ clamav_freshclam_receive_timeout }}
+TestDatabases {{ (clamav_freshclam_test_databases) | ternary("yes", "no") }}
+SafeBrowsing {{ (clamav_freshclam_safe_browsing) | ternary("yes", "no") }}
+Bytecode {{ (clamav_freshclam_bytecode) | ternary("yes", "no") }}
+
+{% if clamav_freshclam_extra_database is defined %}
+ExtraDatabase {{ clamav_freshclam_extra_database }}
+{% endif %}

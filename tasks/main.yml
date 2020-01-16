@@ -1,0 +1,66 @@
+---
+# Role tasks
+
+- block:
+    - name: Setup ClamAV database update config
+      template:
+        src: freshclam.conf.j2
+        dest: /etc/freshclam.conf
+        owner: root
+        group: root
+        mode: 0644
+      register: clamav_setup_freshclam_result
+
+    - name: Update ClamAV database
+      command: /usr/bin/freshclam
+      changed_when: yes
+      when: clamav_setup_freshclam_result is changed
+
+    - name: Setup ClamAV database update service unit
+      template:
+        src: freshclam.service.j2
+        dest: /usr/lib/systemd/system/freshclam.service
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Setup ClamAV database update service log file
+      file:
+        path: "{{ clamav_freshclam_log }}"
+        mode: 0660
+        state: touch
+        owner: "{{ clamav_user }}"
+        group: root
+      when: clamav_log_file is defined
+
+    - name: Start ClamAV database update service
+      systemd:
+        name: freshclam
+        enabled: yes
+        state: started
+
+    - name: Setup ClamAV scan configuration file
+      template:
+        src: scan.conf.j2
+        dest: /etc/clamd.d/scan.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Setup ClamAV service log file
+      file:
+        path: "{{ clamav_log_file }}"
+        mode: 0660
+        state: touch
+        owner: "{{ clamav_user }}"
+        group: root
+      when: clamav_log_file is defined
+
+    - name: Start ClamAV scan service
+      systemd:
+        name: clamd@scan.service
+        enabled: yes
+        state: started
+        no_block: yes
+  tags:
+    - role::clamav

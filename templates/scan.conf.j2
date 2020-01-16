@@ -1,0 +1,185 @@
+{{ ansible_managed | comment }}
+
+{% if clamav_log_file is defined %}
+LogFile {{ clamav_log_file }}
+{% endif %}
+
+LogFileUnlock {{ (clamav_log_file_unlock) | ternary("yes", "no") }}
+LogFileMaxSize {{ clamav_log_file_max_size }}
+LogTime {{ (clamav_log_time) | ternary("yes", "no") }}
+LogClean {{ (clamav_log_clean) | ternary("yes", "no") }}
+
+{% if clamav_log_syslog %}
+LogSyslog {{ (clamav_log_syslog) | ternary("yes", "no") }}
+LogFacility {{ clamav_log_syslog_facility }}
+{% endif %}
+
+LogVerbose {{ (clamav_log_verbose) | ternary("yes", "no") }}
+LogRotate {{ (clamav_log_rotate) | ternary("yes", "no") }}
+PreludeEnable {{ (clamav_prelude_enable) | ternary("yes", "no") }}
+PreludeAnalyzerName {{ clamav_prelude_analyzer_name }}
+ExtendedDetectionInfo {{ (clamav_extended_detection_info) | ternary("yes", "no") }}
+
+{% if clamav_pid_file is defined %}
+PidFile {{ clamav_pid_file }}
+{% endif %}
+
+TemporaryDirectory {{ clamav_temporary_directory }}
+DatabaseDirectory {{ clamav_database_directory }}
+OfficialDatabaseOnly {{ (clamav_official_database_only) | ternary("yes", "no") }}
+
+{% if clamav_local_socket is defined %}
+LocalSocket {{ clamav_local_socket }}
+{% endif %}
+
+{% if clamav_local_socket_group is defined %}
+LocalSocketGroup {{ clamav_local_socket_group }}
+{% endif %}
+
+{% if clamav_local_socket_mode is defined %}
+LocalSocketMode {{ clamav_local_socket_mode }}
+{% endif %}
+
+FixStaleSocket {{ (clamav_fix_stale_socket) | ternary("yes", "no") }}
+
+{% if clamav_tcp_socket is defined %}
+TCPSocket {{ clamav_tcp_socket }}
+{% endif %}
+
+{% if clamav_tcp_addr is defined %}
+TCPAddr {{ clamav_tcp_addr }}
+{% endif %}
+
+MaxConnectionQueueLength {{ clamav_max_connection_queue_length }}
+StreamMaxLength {{ clamav_stream_max_length }}
+StreamMinPort {{ clamav_stream_min_port }}
+StreamMaxPort {{ clamav_stream_max_port }}
+MaxThreads {{ clamav_max_threads }}
+ReadTimeout {{ clamav_read_timeout }}
+CommandReadTimeout {{ clamav_command_read_timeout }}
+SendBufTimeout {{ clamav_send_buf_timeout }}
+MaxQueue {{ clamav_max_queue }}
+IdleTimeout {{ clamav_idle_timeout }}
+
+{% if clamav_exclude_path is defined %}
+{% for c in clamav_exclude_path %}
+ExcludePath {{ c }}
+{% endfor %}
+{% endif %}
+
+MaxDirectoryRecursion {{ clamav_max_directory_recursion }}
+FollowDirectorySymlinks {{ (clamav_follow_directory_symlinks) | ternary("yes", "no") }}
+FollowFileSymlinks {{ (clamav_follow_file_symlinks) | ternary("yes", "no") }}
+CrossFilesystems {{ (clamav_cross_filesystems) | ternary("yes", "no") }}
+SelfCheck {{ clamav_self_check }}
+
+{% if clamav_virus_event is defined %}
+VirusEvent {{ clamav_virus_event }}
+{% endif %}
+
+{% if clamav_user is defined %}
+User {{ clamav_user }}
+{% endif %}
+
+ExitOnOOM {{ (clamav_exit_on_oom) | ternary("yes", "no") }}
+Foreground {{ (clamav_foreground) | ternary("yes", "no") }}
+Debug {{ (clamav_debug) | ternary("yes", "no") }}
+LeaveTemporaryFiles {{ (clamav_leave_temporary_files) | ternary("yes", "no") }}
+AllowAllMatchScan {{ (clamav_allow_all_match_scan) | ternary("yes", "no") }}
+DetectPUA {{ (clamav_detect_pua) | ternary("yes", "no") }}
+
+{% if clamav_exclude_pua is defined %}
+{% for c in clamav_exclude_pua %}
+ExcludePUA {{ c }}
+{% endfor %}
+{% endif %}
+
+{% if clamav_include_pua is defined %}
+{% for c in clamav_include_pua %}
+IncludePUA {{ c }}
+{% endfor %}
+{% endif %}
+
+ForceToDisk {{ (clamav_force_to_disk) | ternary("yes", "no") }}
+DisableCache {{ (clamav_disable_cache) | ternary("yes", "no") }}
+HeuristicAlerts {{ (clamav_heuristic_alerts) | ternary("yes", "no") }}
+HeuristicScanPrecedence {{ (clamav_heuristic_scan_precedence) | ternary("yes", "no") }}
+AlertBrokenExecutables {{ (clamav_alert_broken_executables) | ternary("yes", "no") }}
+AlertEncrypted {{ (clamav_alert_encrypted) | ternary("yes", "no") }}
+AlertEncryptedArchive {{ (clamav_alert_encrypted_archive) | ternary("yes", "no") }}
+AlertEncryptedDoc {{ (clamav_alert_encrypted_doc) | ternary("yes", "no") }}
+AlertOLE2Macros {{ (clamav_alert_ole2_macros) | ternary("yes", "no") }}
+AlertPhishingSSLMismatch {{ (clamav_alert_phishing_ssl_mismatch) | ternary("yes", "no") }}
+AlertPhishingCloak {{ (clamav_alert_phishing_cloak) | ternary("yes", "no") }}
+AlertPartitionIntersection {{ (clamav_alert_partition_intersection) | ternary("yes", "no") }}
+ScanPE {{ (clamav_scan_pe) | ternary("yes", "no") }}
+DisableCertCheck {{ (clamav_disable_cert_check) | ternary("yes", "no") }}
+ScanELF {{ (clamav_scan_elf) | ternary("yes", "no") }}
+ScanOLE2 {{ (clamav_scan_ole2) | ternary("yes", "no") }}
+ScanPDF {{ (clamav_scan_pdf) | ternary("yes", "no") }}
+ScanSWF {{ (clamav_scan_swf) | ternary("yes", "no") }}
+ScanXMLDOCS {{ (clamav_scan_xml_docs) | ternary("yes", "no") }}
+ScanHWP3 {{ (clamav_scan_hwp3) | ternary("yes", "no") }}
+ScanMail {{ (clamav_scan_mail) | ternary("yes", "no") }}
+ScanPartialMessages {{ (clamav_scan_partial_messages) | ternary("yes", "no") }}
+PhishingSignatures {{ (clamav_phishing_signatures) | ternary("yes", "no") }}
+PhishingScanURLs {{ (clamav_phishing_scan_urls) | ternary("yes", "no") }}
+StructuredDataDetection {{ (clamav_structured_data_detection) | ternary("yes", "no") }}
+StructuredMinCreditCardCount {{ clamav_structured_min_credit_card_count }}
+StructuredMinSSNCount {{ clamav_structured_min_ssn_count }}
+StructuredSSNFormatNormal {{ (clamav_structured_ssn_format_normal) | ternary("yes", "no") }}
+StructuredSSNFormatStripped {{ (clamav_structured_ssn_format_stripped) | ternary("yes", "no") }}
+ScanHTML {{ (clamav_scan_html) | ternary("yes", "no") }}
+ScanArchive {{ (clamav_scan_archive) | ternary("yes", "no") }}
+MaxScanSize {{ clamav_max_scan_size }}
+MaxFileSize {{ clamav_max_file_size }}
+MaxRecursion {{ clamav_max_recursion }}
+MaxFiles {{ clamav_max_files }}
+MaxEmbeddedPE {{ clamav_max_embedded_pe }}
+MaxHTMLNormalize {{ clamav_max_html_normalize }}
+MaxHTMLNoTags {{ clamav_max_html_no_tags }}
+MaxScriptNormalize {{ clamav_max_script_normalize }}
+MaxZipTypeRcg {{ clamav_max_zip_type_rcg }}
+MaxPartitions {{ clamav_max_partitions }}
+MaxIconsPE {{ clamav_max_icons_pe }}
+MaxRecHWP3 {{ clamav_max_rec_hwp3 }}
+PCREMatchLimit {{ clamav_pcre_match_limit }}
+PCRERecMatchLimit {{ clamav_pcre_rec_match_limit }}
+PCREMaxFileSize {{ clamav_pcre_max_file_size }}
+AlertExceedsMax {{ (clamav_alert_exceeds_max) | ternary("yes", "no") }}
+ScanOnAccess {{ (clamav_scan_on_access) | ternary("yes", "no") }}
+
+{% if clamav_on_access_mount_path is defined %}
+{% for c in clamav_on_access_mount_path %}
+OnAccessMountPath {{ c }}
+{% endfor %}
+{% endif %}
+
+OnAccessMaxFileSize {{ clamav_on_access_max_file_size }}
+
+{% if clamav_on_access_include_path is defined %}
+{% for c in clamav_on_access_include_path %}
+OnAccessIncludePath {{ c }}
+{% endfor %}
+{% endif %}
+
+{% if clamav_on_access_exclude_path is defined %}
+{% for c in clamav_on_access_exclude_path %}
+OnAccessExcludePath {{ c }}
+{% endfor %}
+{% endif %}
+
+OnAccessExcludeRootUID {{ (clamav_on_access_exclude_root_uid) | ternary("yes", "no") }}
+
+{% if clamav_on_access_exclude_uid is defined %}
+{% for c in clamav_on_access_exclude_uid %}
+OnAccessExcludeUID {{ c }}
+{% endfor %}
+{% endif %}
+
+OnAccessDisableDDD {{ (clamav_on_access_disable_ddd) | ternary("yes", "no") }}
+OnAccessPrevention {{ (clamav_on_access_prevention) | ternary("yes", "no") }}
+OnAccessExtraScanning {{ (clamav_on_access_extra_scanning) | ternary("yes", "no") }}
+Bytecode {{ (clamav_bytecode) | ternary("yes", "no") }}
+BytecodeSecurity {{ clamav_bytecode_security }}
+BytecodeTimeout {{ clamav_bytecode_timeout }}

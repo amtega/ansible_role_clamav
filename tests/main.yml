@@ -1,0 +1,57 @@
+---
+# Tasks for testing role
+
+- name: Configure vagrant sandbox environment
+  hosts: localhost
+  roles:
+    - role: amtega.vagrant_presets
+      vagrant_presets_boxes_json_query: >-
+        [? starts_with(name, `centos-7`)
+           || starts_with(name, `fedora-29`)
+           || starts_with(name, `fedora-30`) ]
+  tags:
+    - sandbox
+
+- name: Run idempotence test
+  hosts: localhost
+  roles:
+    - role: amtega.vagrant_sandbox
+      vars:
+        vagrant_sandbox_state: started
+        vagrant_provisioner_vm_memory: 1024
+  tags:
+    - sandbox
+
+- name: Test clamav role
+  hosts: vagrant_sandbox_vms
+  roles:
+    - role: amtega.clamav
+      vars:
+        clamav_max_directory_recursion: 0
+  tasks:
+    - name: Gather service facts
+      service_facts:
+      register: clamav_services_state
+
+    - debug: msg="{{ ansible_facts.services['freshclam.service'].state }}"
+
+    - debug: msg="{{ ansible_facts.services['clamd@scan.service'].state }}"
+
+    - name: Assert ClamAV services are running
+      assert:
+        that:
+          - clamav_freshclam_state == "running"
+      vars:
+        clamav_freshclam_state: >-
+          {{ ansible_facts.services['freshclam.service'].state }}
+  tags:
+    - idempotence
+
+- name: Cleanup vagrant sandbox
+  hosts: localhost
+  roles:
+    - role: amtega.vagrant_sandbox
+      vagrant_sandbox_state: absent
+  tags:
+    - cleanup
+    - sandbox
