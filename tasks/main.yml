@@ -63,6 +63,7 @@
         enabled: yes
         state: started
         no_block: yes
+
   tags:
     - role::clamav
 
@@ -72,4 +73,5 @@
       name: clamd@scan.service
       state: restarted
       daemon_reload: yes
-  tags: role::clamav::restart
+  tags:
+    - role::clamav::restart
