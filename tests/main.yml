@@ -28,6 +28,8 @@
     - role: amtega.clamav
       vars:
         clamav_max_directory_recursion: 0
+      tags: [role::clamav]
+
   tasks:
     - name: Gather service facts
       service_facts:
