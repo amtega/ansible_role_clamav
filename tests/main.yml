@@ -28,6 +28,7 @@
     - role: amtega.clamav
       vars:
         clamav_max_directory_recursion: 0
+        clamav_freshclam_log: /var/log/clamav.log
       tags: [role::clamav]
 
   tasks:

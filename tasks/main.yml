@@ -2,6 +2,7 @@
 # Role tasks
 
 - block:
+    ## freshclam configuration
     - name: Setup ClamAV database update config
       template:
         src: freshclam.conf.j2
@@ -9,13 +10,17 @@
         owner: root
         group: root
         mode: 0644
+        backup: yes
       register: clamav_setup_freshclam_result
 
-    - name: Update ClamAV database
-      become: true
-      command: /usr/bin/freshclam
-      changed_when: yes
-      when: clamav_setup_freshclam_result is changed
+    - name: Setup ClamAV database update service log file
+      file:
+        path: "{{ clamav_freshclam_log }}"
+        mode: 0660
+        state: touch
+        owner: "{{ clamav_user }}"
+        group: clamupdate
+      when: clamav_freshclam_log is defined
 
     - name: Setup ClamAV database update service unit
       template:
@@ -24,22 +29,9 @@
         owner: root
         group: root
         mode: 0644
+        backup: yes
 
-    - name: Setup ClamAV database update service log file
-      file:
-        path: "{{ clamav_freshclam_log }}"
-        mode: 0660
-        state: touch
-        owner: "{{ clamav_user }}"
-        group: root
-      when: clamav_freshclam_log is defined
-
-    - name: Start ClamAV database update service
-      systemd:
-        name: freshclam
-        enabled: yes
-        state: started
-
+    # clamav configuration
     - name: Setup ClamAV scan configuration file
       template:
         src: scan.conf.j2
@@ -47,6 +39,7 @@
         owner: root
         group: root
         mode: 0644
+        backup: yes
 
     - name: Setup ClamAV service log file
       file:
@@ -57,6 +50,29 @@
         group: root
       when: clamav_log_file is defined
 
+    - name: Setup ClamAV scan service unit
+      template:
+        src: scan.service.j2
+        dest: /usr/lib/systemd/system/clamd@scan.service
+        owner: root
+        group: root
+        mode: 0644
+        backup: yes
+
+    # start ClamAV database update services
+    # - name: Update ClamAV database
+    #   become: true
+    #   command: /usr/bin/freshclam
+    #   changed_when: yes
+    #   when: clamav_setup_freshclam_result is changed
+
+    - name: Start ClamAV database update service
+      systemd:
+        name: freshclam
+        enabled: yes
+        state: started
+
+    # start ClamAV scan service
     - name: Start ClamAV scan service
       systemd:
         name: clamd@scan.service

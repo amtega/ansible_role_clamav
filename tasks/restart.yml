@@ -1,8 +1,14 @@
 ---
 - block:
-  - name: "Restart ClamAV"
+  - name: "Restart ClamAV scan service"
     systemd:
       name: clamd@scan.service
+      state: restarted
+      daemon_reload: yes
+
+  - name: "Restart ClamAV database update service"
+    systemd:
+      name: freshclam
       state: restarted
       daemon_reload: yes
   tags:
