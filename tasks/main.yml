@@ -2,7 +2,6 @@
 # Role tasks
 
 - block:
-    ## freshclam configuration
     - name: Setup ClamAV database update config
       template:
         src: freshclam.conf.j2
@@ -31,7 +30,6 @@
         mode: 0644
         backup: yes
 
-    # clamav configuration
     - name: Setup ClamAV scan configuration file
       template:
         src: scan.conf.j2
@@ -59,12 +57,10 @@
         mode: 0644
         backup: yes
 
-    # start ClamAV database update services
-    # - name: Update ClamAV database
-    #   become: true
-    #   command: /usr/bin/freshclam
-    #   changed_when: yes
-    #   when: clamav_setup_freshclam_result is changed
+    - name: Update ClamAV database
+      command: /usr/bin/freshclam
+      changed_when: yes
+      when: clamav_setup_freshclam_result is changed
 
     - name: Start ClamAV database update service
       systemd:
@@ -72,7 +68,6 @@
         enabled: yes
         state: started
 
-    # start ClamAV scan service
     - name: Start ClamAV scan service
       systemd:
         name: clamd@scan.service
