@@ -1,0 +1,10 @@
+{{ ansible_managed | comment }}
+
+{{clamav_log_file}} {
+  #create 644 {{clamav_user}} {{clamav_user}}
+  weekly
+  compress
+  postrotate
+  systemctl try-restart clamd@scan.service
+  endscript
+}

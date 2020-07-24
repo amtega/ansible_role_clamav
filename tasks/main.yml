@@ -48,6 +48,20 @@
         group: root
       when: clamav_log_file is defined
 
+    - name: Setup ClamAV logroate file
+      template:
+        src: logrotate_clamav.j2
+        dest: /etc/logrotate.d/clamav-scan
+      when:
+        - clamav_log_file is defined
+        - clamav_logrotate_state == 'present'
+
+    - name: Remove ClamAV logrotate file
+      file:
+        path: /etc/logrotate.d/clamav-scan
+        state: absent
+      when: clamav_logrotate_state == 'absent'
+
     - name: Setup ClamAV scan service unit
       template:
         src: scan.service.j2
@@ -59,6 +73,7 @@
 
     - name: Update ClamAV database
       command: /usr/bin/freshclam
+      become: true
       changed_when: yes
       when: clamav_setup_freshclam_result is changed
 

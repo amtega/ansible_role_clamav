@@ -149,3 +149,6 @@ clamav_freshclam_test_databases: yes
 clamav_freshclam_safe_browsing: no
 clamav_freshclam_bytecode: yes
 # clamav_freshclam_extra_database: dbname1
+
+# creates or not logrotate.d configuration
+clamav_logrotate_state: 'absent' # 'present'
