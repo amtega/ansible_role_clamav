@@ -18,7 +18,7 @@
         mode: 0660
         state: touch
         owner: "{{ clamav_user }}"
-        group: clamupdate
+        group: "{{clamav_freshclam_database_owner}}"
       when: clamav_freshclam_log is defined
 
     - name: Setup ClamAV database update service unit
