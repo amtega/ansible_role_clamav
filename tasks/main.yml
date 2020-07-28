@@ -54,14 +54,13 @@
         dest: /etc/logrotate.d/clamav-scan
       when:
         - clamav_log_file is defined
-        - clamav_logrotate_d
-        #- clamav_logrotate_d == 'yes'
+        - clamav_logrotate_d | bool
 
     - name: Remove ClamAV logrotate file
       file:
         path: /etc/logrotate.d/clamav-scan
         state: absent
-      when: not clamav_logrotate_d
+      when: not clamav_logrotate_d | bool
 
     - name: Setup ClamAV scan service unit
       template:
