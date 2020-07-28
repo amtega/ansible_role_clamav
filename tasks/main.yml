@@ -54,13 +54,13 @@
         dest: /etc/logrotate.d/clamav-scan
       when:
         - clamav_log_file is defined
-        - clamav_logrotate_state == 'present'
+        - clamav_logrotate_d == yes
 
     - name: Remove ClamAV logrotate file
       file:
         path: /etc/logrotate.d/clamav-scan
         state: absent
-      when: clamav_logrotate_state == 'absent'
+      when: clamav_logrotate_d == no
 
     - name: Setup ClamAV scan service unit
       template:
@@ -73,7 +73,7 @@
 
     - name: Update ClamAV database
       command: /usr/bin/freshclam
-      become: true
+      become_user: root
       changed_when: yes
       when: clamav_setup_freshclam_result is changed
 

@@ -151,4 +151,4 @@ clamav_freshclam_bytecode: yes
 # clamav_freshclam_extra_database: dbname1
 
 # creates or not logrotate.d configuration
-clamav_logrotate_state: 'absent' # 'present'
+clamav_logrotate_d: no # yes
