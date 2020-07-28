@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+
+{{clamav_log_file}} {
+  weekly
+  compress
+  postrotate
+  systemctl try-restart clamd@scan.service
+  endscript
+}
