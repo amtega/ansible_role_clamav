@@ -147,7 +147,8 @@ PCREMatchLimit {{ clamav_pcre_match_limit }}
 PCRERecMatchLimit {{ clamav_pcre_rec_match_limit }}
 PCREMaxFileSize {{ clamav_pcre_max_file_size }}
 AlertExceedsMax {{ (clamav_alert_exceeds_max) | ternary("yes", "no") }}
-ScanOnAccess {{ (clamav_scan_on_access) | ternary("yes", "no") }}
+# deprecated
+# ScanOnAccess {{ (clamav_scan_on_access) | ternary("yes", "no") }}
 
 {% if clamav_on_access_mount_path is defined %}
 {% for c in clamav_on_access_mount_path %}
