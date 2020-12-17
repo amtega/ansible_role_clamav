@@ -19,7 +19,7 @@ clamav_extended_detection_info: yes
 clamav_temporary_directory: /tmp
 clamav_database_directory: /var/lib/clamav
 clamav_official_database_only: no
-clamav_local_socket: /var/run/clam.d/clamd.sock
+#clamav_local_socket: /var/run/clam.d/clamd.sock
 #clamav_local_socket_group: virusgroup
 #clamav_local_socket_mode: 660
 clamav_fix_stale_socket: yes
@@ -153,3 +153,5 @@ clamav_freshclam_bytecode: yes
 # Creats or not logrotate.d configuration
 
 clamav_logrotate_d: no
+
+clamav0103: true

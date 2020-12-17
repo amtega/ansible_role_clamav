@@ -1,5 +1,6 @@
 ---
-- block:
+- when: not clamav0103
+  block:
   - name: "Restart ClamAV scan service"
     systemd:
       name: clamd@scan.service
@@ -11,5 +12,22 @@
       name: freshclam
       state: restarted
       daemon_reload: yes
+
+- when: clamav0103
+  block:
+    - name: "Restart ClamAV scan service"
+      systemd:
+        name: clamd-scan.service
+        state: restarted
+        daemon_reload: yes
+      changed_when: false
+
+    - name: "Restart ClamAV database update service"
+      systemd:
+        name: clamav-freshclam
+        state: restarted
+        daemon_reload: yes
+      changed_when: false
+
   tags:
     - role::clamav::restart
