@@ -10,6 +10,7 @@ Type = forking
 ExecStart = /usr/sbin/clamd -c /etc/clamd.d/scan.conf
 # Reload the database
 ExecReload=/bin/kill -USR2 $MAINPID
+RestartSec= 120
 Restart = on-failure
 TimeoutStartSec=420
 

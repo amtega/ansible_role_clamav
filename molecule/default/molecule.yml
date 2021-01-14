@@ -31,22 +31,30 @@ lint: |
 platforms:
   - name: "centos7-${INSTANCE_UUID:-1}"
     box: centos/7
-    memory: 1024
+    memory: 2048
     groups:
       - molecule_hosts
       - molecule_hosts_centos
-  - name: "fedora29-${INSTANCE_UUID:-1}"
-    box: fedora/29-cloud-base
-    memory: 1536
-    groups:
-      - molecule_hosts
-      - molecule_hosts_fedora
+  # - name: "fedora29-${INSTANCE_UUID:-1}"
+  #   box: fedora/29-cloud-base
+  #   memory: 1536
+  #   groups:
+  #     - molecule_hosts
+  #     - molecule_hosts_fedora
   - name: "fedora30-${INSTANCE_UUID:-1}"
     box: fedora/30-cloud-base
-    memory: 1536
+    memory: 3072
     groups:
       - molecule_hosts
       - molecule_hosts_fedora
+
+  - name: "fedora31-${INSTANCE_UUID:-1}"
+    box: fedora/31-cloud-base
+    memory: 2048
+    groups:
+      - molecule_hosts
+      - molecule_hosts_fedora
+
 provisioner:
   name: ansible
   config_options:
