@@ -87,7 +87,7 @@
             path: /var/lib/clamav/daily.cld
             state: absent
 
-        - name: ReStart ClamAV scan service
+        - name: ReStart ClamAV scan service with systemctl command
           # systemd:
           #   name: clamd-scan.service
           #   state: start
