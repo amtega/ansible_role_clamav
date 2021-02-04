@@ -9,10 +9,26 @@
       service_facts:
       register: clamav_services_state
 
-    - name: Assert ClamAV services are running
+    - name: Test running processes
+      shell: "ps ax | grep clam"
+      register: ps_output
+
+    - name: Running processes
+      debug:
+        msg: "{{ ps_output.stdout_lines }}"
+
+    - name: Assert ClamAV freshclam services are running
       assert:
         that:
           - clamav_freshclam_state == "running"
       vars:
         clamav_freshclam_state: >-
-          {{ ansible_facts.services['freshclam.service'].state }}
+          {{ ansible_facts.services['clamav-freshclam.service'].state }}
+
+    - name: Assert ClamAV clamd services are running
+      assert:
+        that:
+          - clamav_scan_state == "running"
+      vars:
+        clamav_scan_state: >-
+          {{ ansible_facts.services['clamd-scan.service'].state }}

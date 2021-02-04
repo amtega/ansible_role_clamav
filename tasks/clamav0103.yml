@@ -25,7 +25,7 @@
       changed_when: yes
       when: clamav_setup_freshclam_result is changed
 
-    - name: Start ClamAV scan service
+    - name: Start ClamAV freshclam service
       systemd:
         name: clamav-freshclam
         enabled: yes
@@ -54,8 +54,8 @@
       template:
         src: scan-clamav0103.service.j2
         dest: /usr/lib/systemd/system/clamd-scan.service
-#        owner: root
-#        group: root
+        owner: root
+        group: root
         mode: 0644
         backup: yes
 
@@ -74,3 +74,26 @@
         enabled: yes
         state: started
         no_block: yes
+
+    - name: Gather service facts
+      service_facts:
+      register: clamav_services_state
+
+    - name: Manage possible service problem
+      when: ansible_facts.services['clamd-scan.service'].state != "running"
+      block:
+        - name: Remove file
+          file:
+            path: /var/lib/clamav/daily.cld
+            state: absent
+
+        - name: ReStart ClamAV scan service with systemctl command
+          # systemd:
+          #   name: clamd-scan.service
+          #   state: start
+          #   no_block: yes
+          command: systemctl start clamd-scan
+          register: systemd_output
+
+        - debug:
+            var: systemd_output

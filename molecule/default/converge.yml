@@ -5,4 +5,9 @@
   gather_facts: no
   become: yes
   roles:
-    - amtega.clamav
+    - role: amtega.clamav
+      vars:
+        clamav_local_socket: /var/run/clamd.scan/clamd.sock
+        clamav_local_socket_group: virusgroup
+        clamav_local_socket_mode: 660
+        clamav_pid_file: /var/run/clamd.scan/clamd.pid
