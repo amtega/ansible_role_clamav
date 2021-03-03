@@ -14,12 +14,7 @@ platforms:
     groups:
       - molecule_hosts
       - molecule_hosts_centos
-  # - name: "fedora29-${INSTANCE_UUID:-1}"
-  #   box: fedora/29-cloud-base
-  #   memory: 1536
-  #   groups:
-  #     - molecule_hosts
-  #     - molecule_hosts_fedora
+
   - name: "fedora30-${INSTANCE_UUID:-1}"
     box: fedora/30-cloud-base
     memory: 3072

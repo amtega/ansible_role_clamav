@@ -36,7 +36,30 @@ dependencies:
         all:
           all:
             clamav: present
+            clamav-server: present
             clamav-update: present
             clamav-data: present
             clamav-filesystem: present
             clamd: present
+            clamav-scanner-systemd: present
+            clamav-devel: present
+            clamav-lib: present
+            clamav-server-systemd: present
+        centos:
+          7:
+            libselinux-python: present
+            libsemanage-python: present
+          8:
+            libselinux-python3: present
+            libsemanage-python3: present
+        fedora:
+          all:
+            libselinux-python3: present
+            libsemanage-python3: present            
+        redhat:
+          7:
+            libselinux-python: present
+            libsemanage-python: present
+          8:
+            libselinux-python3: present
+            libsemanage-python3: present
