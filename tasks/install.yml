@@ -51,6 +51,7 @@
       template:
         src: logrotate_clamav.j2
         dest: /etc/logrotate.d/clamav-scan
+        mode: 0640
       when:
         - clamav_log_file is defined
         - clamav_logrotate_d | bool
