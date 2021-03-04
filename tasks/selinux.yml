@@ -1,8 +1,7 @@
 ---
 
 - block:
-
-    - name: Set clamav needed selinux flags
+    - name: Setup ClamAV selinux flags
       seboolean:
         name: "{{ selinux_flag }}"
         state: yes
@@ -12,6 +11,5 @@
         - clamd_use_jit
       loop_control:
         loop_var: selinux_flag
-
   tags:
     - role::clamav::restart

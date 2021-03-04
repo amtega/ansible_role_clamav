@@ -1,13 +1,12 @@
 ---
 # Role tasks
-- block:
 
+- block:
     - include_tasks: selinux.yml
       when:
-        - ansible_selinux is defined
-        - ansible_selinux.status != 'disabled'
+        - ansible_facts.selinux is defined
+        - ansible_facts.selinux.status != 'disabled'
 
     - include_tasks: install.yml
-
   tags:
     - role::clamav

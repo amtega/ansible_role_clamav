@@ -15,15 +15,22 @@ platforms:
       - molecule_hosts
       - molecule_hosts_centos
 
-  - name: "fedora30-${INSTANCE_UUID:-1}"
-    box: fedora/30-cloud-base
+  - name: "centos8-${INSTANCE_UUID:-1}"
+    box: centos/8
+    memory: 2048
+    groups:
+      - molecule_hosts
+      - molecule_hosts_centos
+
+  - name: "fedora32-${INSTANCE_UUID:-1}"
+    box: fedora/32-cloud-base
     memory: 3072
     groups:
       - molecule_hosts
       - molecule_hosts_fedora
 
-  - name: "fedora31-${INSTANCE_UUID:-1}"
-    box: fedora/31-cloud-base
+  - name: "fedora33-${INSTANCE_UUID:-1}"
+    box: fedora/33-cloud-base
     memory: 2048
     groups:
       - molecule_hosts
@@ -40,6 +47,10 @@ provisioner:
       molecule_hosts:
         vars:
           clamav_max_directory_recursion: 0
+          clamav_local_socket: /var/run/clamd.scan/clamd.sock
+          clamav_local_socket_group: virusgroup
+          clamav_local_socket_mode: 660
+          clamav_pid_file: /var/run/clamd.scan/clamd.pid
       molecule_hosts_fedora:
         vars:
           ansible_python_interpreter: /usr/bin/python3
