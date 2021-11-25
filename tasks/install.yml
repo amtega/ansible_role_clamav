@@ -83,6 +83,13 @@
         - name: Execute update command
           command: /usr/bin/freshclam
           changed_when: yes
+
+        - name: For safety change database permissions
+          file:
+            path: "{{ item }}"
+            mode: 0660
+          with_fileglob:
+            - "/var/lib/clamav/*.cvd"  
       when: clamav_setup_freshclam_result is changed
 
     - name: Start ClamAV database update service
