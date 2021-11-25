@@ -87,9 +87,10 @@
         - name: For safety change database permissions
           file:
             path: "{{ item }}"
-            mode: 0660
+            #mode: 0660
+            group: "{{ grp_clamav_local_socket_group }}"
           with_fileglob:
-            - "/var/lib/clamav/*.cvd"  
+            - "/var/lib/clamav/*.cvd"
       when: clamav_setup_freshclam_result is changed
 
     - name: Start ClamAV database update service
