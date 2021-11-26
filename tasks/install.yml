@@ -82,7 +82,7 @@
 
         - name: Execute update command
           command: /usr/bin/freshclam
-          changed_when: yes
+          changed_when: false
 
         - name: For safety change database permissions
           file:
