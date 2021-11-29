@@ -56,6 +56,7 @@ clamav_disable_cache: no
 clamav_heuristic_alerts: yes
 clamav_heuristic_scan_precedence: no
 clamav_alert_broken_executables: no
+clamav_alert_broken_media: no
 clamav_alert_encrypted: no
 clamav_alert_encrypted_archive: no
 clamav_alert_encrypted_doc: no
@@ -82,6 +83,7 @@ clamav_structured_ssn_format_normal: yes
 clamav_structured_ssn_format_stripped: no
 clamav_scan_html: yes
 clamav_scan_archive: yes
+clamav_max_scan_time: 120000
 clamav_max_scan_size: 100M
 clamav_max_file_size: 25M
 clamav_max_recursion: 16
