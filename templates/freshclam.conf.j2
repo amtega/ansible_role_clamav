@@ -83,7 +83,7 @@ Debug {{ (clamav_freshclam_debug) | ternary("yes", "no") }}
 ConnectTimeout {{ clamav_freshclam_connect_timeout }}
 ReceiveTimeout {{ clamav_freshclam_receive_timeout }}
 TestDatabases {{ (clamav_freshclam_test_databases) | ternary("yes", "no") }}
-SafeBrowsing {{ (clamav_freshclam_safe_browsing) | ternary("yes", "no") }}
+# SafeBrowsing {{ (clamav_freshclam_safe_browsing) | ternary("yes", "no") }}
 Bytecode {{ (clamav_freshclam_bytecode) | ternary("yes", "no") }}
 
 {% if clamav_freshclam_extra_database is defined %}
