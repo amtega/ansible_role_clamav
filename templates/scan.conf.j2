@@ -105,6 +105,7 @@ DisableCache {{ (clamav_disable_cache) | ternary("yes", "no") }}
 HeuristicAlerts {{ (clamav_heuristic_alerts) | ternary("yes", "no") }}
 HeuristicScanPrecedence {{ (clamav_heuristic_scan_precedence) | ternary("yes", "no") }}
 AlertBrokenExecutables {{ (clamav_alert_broken_executables) | ternary("yes", "no") }}
+AlertBrokenMedia {{ (clamav_alert_broken_media) | ternary("yes", "no") }}
 AlertEncrypted {{ (clamav_alert_encrypted) | ternary("yes", "no") }}
 AlertEncryptedArchive {{ (clamav_alert_encrypted_archive) | ternary("yes", "no") }}
 AlertEncryptedDoc {{ (clamav_alert_encrypted_doc) | ternary("yes", "no") }}
@@ -131,6 +132,7 @@ StructuredSSNFormatNormal {{ (clamav_structured_ssn_format_normal) | ternary("ye
 StructuredSSNFormatStripped {{ (clamav_structured_ssn_format_stripped) | ternary("yes", "no") }}
 ScanHTML {{ (clamav_scan_html) | ternary("yes", "no") }}
 ScanArchive {{ (clamav_scan_archive) | ternary("yes", "no") }}
+MaxScanTime {{ clamav_max_scan_time }}
 MaxScanSize {{ clamav_max_scan_size }}
 MaxFileSize {{ clamav_max_file_size }}
 MaxRecursion {{ clamav_max_recursion }}

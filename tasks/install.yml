@@ -72,8 +72,25 @@
         backup: yes
 
     - name: Update ClamAV database
-      command: /usr/bin/freshclam
-      changed_when: yes
+      block:
+        - name: For safety remove CVD files
+          file:
+            path: "{{ item }}"
+            state: absent
+          with_fileglob:
+            - "/var/lib/clamav/*.cvd"
+
+        - name: Execute update command
+          command: /usr/bin/freshclam
+          changed_when: false
+
+        - name: For safety change database permissions
+          file:
+            path: "{{ item }}"
+            #mode: 0660
+            group: "{{ grp_clamav_local_socket_group }}"
+          with_fileglob:
+            - "/var/lib/clamav/*.cvd"
       when: clamav_setup_freshclam_result is changed
 
     - name: Start ClamAV database update service
