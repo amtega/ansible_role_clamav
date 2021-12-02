@@ -18,6 +18,7 @@
         state: touch
         owner: "{{ clamav_user }}"
         group: "{{ clamav_freshclam_database_owner }}"
+        changed_when: false
       when: clamav_freshclam_log is defined
 
     - name: Setup ClamAV database update service unit
@@ -45,6 +46,7 @@
         state: touch
         owner: "{{ clamav_user }}"
         group: root
+        changed_when: false
       when: clamav_log_file is defined
 
     - name: Setup ClamAV logrotate file
