@@ -155,5 +155,3 @@ clamav_freshclam_bytecode: yes
 # Creats or not logrotate.d configuration
 
 clamav_logrotate_d: no
-
-clamav0103: true

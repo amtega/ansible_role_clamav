@@ -18,7 +18,7 @@
         state: touch
         owner: "{{ clamav_user }}"
         group: "{{ clamav_freshclam_database_owner }}"
-        changed_when: false
+        changed_when: no
       when: clamav_freshclam_log is defined
 
     - name: Setup ClamAV database update service unit
@@ -38,6 +38,8 @@
         group: root
         mode: 0644
         backup: yes
+      notify:
+        - restart clamav
 
     - name: Setup ClamAV service log file
       file:
@@ -46,7 +48,7 @@
         state: touch
         owner: "{{ clamav_user }}"
         group: root
-        changed_when: false
+        changed_when: no
       when: clamav_log_file is defined
 
     - name: Setup ClamAV logrotate file
@@ -75,24 +77,23 @@
 
     - name: Update ClamAV database
       block:
-        - name: For safety remove CVD files
+        - name: Remove CVD files (for safety)
           file:
             path: "{{ item }}"
             state: absent
           with_fileglob:
-            - "/var/lib/clamav/*.cvd"
+            - /var/lib/clamav/*.cvd
 
         - name: Execute update command
           command: /usr/bin/freshclam
-          changed_when: false
+          changed_when: no
 
-        - name: For safety change database permissions
+        - name: Change database group (for safety)
           file:
             path: "{{ item }}"
-            #mode: 0660
             group: "{{ grp_clamav_local_socket_group }}"
           with_fileglob:
-            - "/var/lib/clamav/*.cvd"
+            - /var/lib/clamav/*.cvd
       when: clamav_setup_freshclam_result is changed
 
     - name: Start ClamAV database update service
@@ -107,3 +108,6 @@
         enabled: yes
         state: started
         no_block: yes
+  tags:
+    - role::clamav
+    - role::clamav::install
