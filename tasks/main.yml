@@ -6,7 +6,7 @@
       when:
         - ansible_facts.selinux is defined
         - ansible_facts.selinux.status != 'disabled'
-
+        
     - include_tasks: install.yml
   tags:
     - role::clamav
