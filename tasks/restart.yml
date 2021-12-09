@@ -1,7 +1,0 @@
----
-
-- name: Restart ClamAV
-  systemd:
-    name: clamd@scan.service
-    state: restarted
-    daemon_reload: yes
