@@ -6,11 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### [1.2.1] - 2021-12-10
+## [1.3.0] - 2022-01-19
+### Changed
+- Supported distros.
+
+## [1.2.1] - 2021-12-10
 ### Fixed
 - Fixed bug in install playbook.
 
-### [1.2.0] - 2021-12-09
+## [1.2.0] - 2021-12-09
 ### Added
 - Added handler.
 
