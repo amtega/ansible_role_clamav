@@ -1,7 +1,7 @@
 ---
 # Role default lower priority variables
 
-# ClamAV daemon settings
+# clamav daemon settings
 
 #clamav_log_file /var/log/clamd.scan
 clamav_log_file_unlock: no
@@ -13,7 +13,7 @@ clamav_log_syslog_facility: LOG_LOCAL6
 clamav_log_verbose: no
 clamav_log_rotate: no
 clamav_prelude_enable: no
-clamav_prelude_analyzer_name: ClamAV
+clamav_prelude_analyzer_name: clamav
 clamav_extended_detection_info: yes
 #clamav_pid_file: /var/run/clamd.scan/clamd.pid
 clamav_temporary_directory: /tmp
@@ -114,7 +114,7 @@ clamav_bytecode: yes
 clamav_bytecode_security: TrustSigned
 clamav_bytecode_timeout: 1000
 
-# ClamAV database update (freshclam) settings
+# clamav database update (freshclam) settings
 
 # clamav_freshclam_log: /var/log/freshclam.log
 clamav_freshclam_log_max_size: 1M
