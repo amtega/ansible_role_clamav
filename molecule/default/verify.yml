@@ -6,19 +6,19 @@
   become: yes
   tasks:
     - name: Gather service facts
-      service_facts:
+      ansible.builtin.service_facts:
       register: clamav_services_state
 
-    - name: Assert ClamAV freshclam services are running
-      assert:
+    - name: Assert clamav freshclam services are running
+      ansible.builtin.assert:
         that:
           - clamav_freshclam_state == "running"
       vars:
         clamav_freshclam_state: >-
           {{ ansible_facts.services['freshclam.service'].state }}
 
-    - name: Assert ClamAV clamd services are running
-      assert:
+    - name: Assert clamav clamd services are running
+      ansible.builtin.assert:
         that:
           - clamav_scan_state == "running"
       vars:

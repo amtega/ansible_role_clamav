@@ -1,16 +1,15 @@
 ---
 
-- block:
-    - name: Setup ClamAV selinux flags
-      seboolean:
-        name: "{{ selinux_flag }}"
-        state: yes
-        persistent: yes
-      loop:
-        - antivirus_can_scan_system
-        - clamd_use_jit
-      loop_control:
-        loop_var: selinux_flag
+- name: Setup clamav selinux flags
+  seboolean:
+    name: "{{ selinux_flag }}"
+    state: yes
+    persistent: yes
+  loop:
+    - antivirus_can_scan_system
+    - clamd_use_jit
+  loop_control:
+    loop_var: selinux_flag
   tags:
     - role::clamav
     - role::clamav::selinux

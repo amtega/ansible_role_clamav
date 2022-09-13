@@ -1,8 +1,8 @@
 ---
 # Role handlers
 
-- name: Restart ClamAV service
-  systemd:
+- name: Restart clamav service
+  ansible.builtin.systemd:
     name: clamd@scan.service
     state: restarted
     daemon_reload: yes

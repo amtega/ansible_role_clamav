@@ -1,6 +1,6 @@
 # Ansible amtega.clamav role
 
-This is an [Ansible](http://www.ansible.com) role to setup ClamAV antivirus.
+This is an [Ansible](http://www.ansible.com) role to setup clamav antivirus.
 
 ## Role Variables
 
